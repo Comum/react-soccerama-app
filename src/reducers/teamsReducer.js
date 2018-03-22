@@ -9,7 +9,8 @@ const INITIAL_STATE = {
         team_image: '',
         squad: []
     },
-    selectedSeason: 0
+    selectedSeason: 0,
+    goalscorers: []
 }
 
 function getLeagues(state, leaguesInfo) {
@@ -72,6 +73,13 @@ function getTeamInfo(state, team) {
     }
 }
 
+function getScorersInfo(state, scorers) { console.log('scorers', scorers);
+    return {
+        ...state,
+        goalscorers: scorers
+    }
+}
+
 export default (state, action) => {
     if (typeof state === 'undefined') {
         state = INITIAL_STATE;
@@ -85,6 +93,8 @@ export default (state, action) => {
             return getTeams(state, action.data);
         case teams.GET_TEAM_INFO:
             return getTeamInfo(state, action.data);
+        case teams.GET_SCORERS_INFO:
+            return getScorersInfo(state, action.data);
         default:
             return state;
     }

@@ -89,3 +89,34 @@ export const specificTeamInfo = teamId => {
             .then(value => dispatch(receiveTeamInfo(value)));
     }
 }
+
+const receiveScorersInfo = createAction(socceramaActions.GET_SCORERS_INFO);
+export const scorersInfo = seasonId => {
+    return dispatch => {
+        return fetch(`${SERVER_URL}/topscorers/season/${seasonId}?api_token=${API_TOKEN}`)
+            .then(response => response.json())
+            .then(json => {
+                let scorers = [];
+
+                return new Promise(resolve => {
+                    json.data.goalscorers.data.forEach((player, index) => {
+                        fetch(`${SERVER_URL}/players/${player.player_id}?api_token=${API_TOKEN}`)
+                            .then(response => response.json())
+                            .then(playerInfo => {
+                                scorers.push({
+                                    id: playerInfo.data.player_id,
+                                    name: playerInfo.data.fullname,
+                                    goals: player.goals,
+                                    penalty_goals: player.penalty_goals
+                                });
+
+                                if (index === json.data.goalscorers.data.length - 1) {
+                                    resolve(scorers);
+                                }
+                            });
+                    });
+                });
+            })
+            .then(value => dispatch(receiveScorersInfo(value)));
+    }
+}

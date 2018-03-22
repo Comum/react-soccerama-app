@@ -7,6 +7,13 @@ body {
     padding: 0;
 }
 
+#root {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
 .Header {
     width: calc(100% - 16px);
     height: 40px;
@@ -17,6 +24,10 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.m-t-16 {
+    margin-top: 16px;
 }
 
 .display-none {

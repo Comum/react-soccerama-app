@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 
 import { getHeaderOptionValue } from '../../lib/util.js';
+import Goalscorers from '../goalscorers/goalscorers.js';
 
 const customStyles = {
     content : {
@@ -22,12 +23,14 @@ class Teams extends React.Component {
             teams: props.teams,
             columns: this.getHeaders(),
             modalIsOpen: false,
-            showTopScorers: false,
+            showTopScorersButton: false,
+            showTopScorersTable: false,
             teamInfo: {
                 team_name: '',
                 team_image: '',
                 squad: []
-            }
+            },
+            goalscorers: []
         }
     }
 
@@ -38,7 +41,8 @@ class Teams extends React.Component {
             squad: []
         };
         let showModal = false;
-        let showTopScorers = false;
+        let showTopScorersButton = false;
+        let showTopScorersTable = false;
 
         if (nextState.teamInfo.squad.length) {
             teamInfo = {
@@ -50,14 +54,20 @@ class Teams extends React.Component {
         }
 
         if (nextState.teams.length) {
-            showTopScorers = true;
+            showTopScorersButton = true;
+        }
+
+        
+        if (nextState.goalscorers.length) {
+            showTopScorersTable = true;
         }
 
         this.setState({
             teams: nextState.teams,
             teamInfo: teamInfo,
             modalIsOpen: showModal,
-            showTopScorers: showTopScorers
+            showTopScorersButton: showTopScorersButton,
+            showTopScorersTable: showTopScorersTable
         });
     }
 
@@ -161,7 +171,8 @@ class Teams extends React.Component {
     }
 
     onClickTopScorers = () => {
-        console.log('top scorers clicked', this.props.selectedSeason)
+        console.log('top scorers clicked', this.props.selectedSeason);
+        this.props.onClickScorers(this.props.selectedSeason);
     }
     
     closeModal = () => {
@@ -219,8 +230,11 @@ class Teams extends React.Component {
                     </ul>
                 </Modal>
 
-                {this.state.showTopScorers &&
-                    <button onClick={this.onClickTopScorers}>Show top scorers</button>
+                {this.state.showTopScorersButton &&
+                    <button className="m-t-16" onClick={this.onClickTopScorers}>Show top scorers</button>
+                }
+                {this.state.showTopScorersTable &&
+                    <Goalscorers goalscorers={this.props.goalscorers}/>
                 }
             </div>
         );
