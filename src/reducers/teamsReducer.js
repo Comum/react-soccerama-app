@@ -37,9 +37,24 @@ function getSeasons(state, seasonsInfo) {
 
 
 function getTeams(state, teams) {
+    let result = teams.data[0].standings.data.map(team => {
+        return {
+            id: team.team_id,
+            position: team.position,
+            team_name: team.team_name,
+            played: team.overall.games_played, 
+            won: team.overall.won,
+            drawn: team.overall.draw,
+            lost: team.overall.lost,
+            goal: team.overall.goals_scored,
+            difference: team.total.goal_difference,
+            points: team.total.points
+        }
+    });
+
     return {
         ...state,
-        teams: teams.data[0].standings.data
+        teams: result
     };
 }
 
