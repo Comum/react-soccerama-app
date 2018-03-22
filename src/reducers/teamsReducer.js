@@ -8,7 +8,8 @@ const INITIAL_STATE = {
         team_name: '',
         team_image: '',
         squad: []
-    }
+    },
+    selectedSeason: 0
 }
 
 function getLeagues(state, leaguesInfo) {
@@ -41,8 +42,8 @@ function getSeasons(state, seasonsInfo) {
 }
 
 
-function getTeams(state, teams) {
-    let result = teams.data[0].standings.data.map(team => {
+function getTeams(state, data) {
+    let result = data.teams.data[0].standings.data.map(team => {
         return {
             id: team.team_id,
             position: team.position,
@@ -59,7 +60,8 @@ function getTeams(state, teams) {
 
     return {
         ...state,
-        teams: result
+        teams: result,
+        selectedSeason: data.selectedSeason
     };
 }
 

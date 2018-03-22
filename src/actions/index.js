@@ -47,7 +47,10 @@ export const teamsInfo = seasonId => {
     return dispatch => {
         return fetch(`${SERVER_URL}/standings/season/${seasonId}?api_token=${API_TOKEN}`)
             .then(response => response.json())
-            .then(json => dispatch(receiveTeamsInfo(json)));
+            .then(json => dispatch(receiveTeamsInfo({
+                teams: json,
+                selectedSeason: seasonId
+            })));
     }
 }
 

@@ -22,6 +22,7 @@ class App extends Component {
                 onChangeSeason={this.props.onChangeSeason}/>
         <Teams  teams={this.props.info.teams}
                 teamInfo={this.props.info.teamInfo}
+                selectedSeason={this.props.info.selectedSeason}
                 onClickTeamName={this.props.onClickTeamName}/>
       </div>
     );

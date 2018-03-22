@@ -5,14 +5,14 @@ import { getHeaderOptionValue } from '../../lib/util.js';
 
 const customStyles = {
     content : {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
     }
-  };
+};
 
 class Teams extends React.Component {
     constructor(props) {
@@ -22,6 +22,7 @@ class Teams extends React.Component {
             teams: props.teams,
             columns: this.getHeaders(),
             modalIsOpen: false,
+            showTopScorers: false,
             teamInfo: {
                 team_name: '',
                 team_image: '',
@@ -37,6 +38,7 @@ class Teams extends React.Component {
             squad: []
         };
         let showModal = false;
+        let showTopScorers = false;
 
         if (nextState.teamInfo.squad.length) {
             teamInfo = {
@@ -47,10 +49,15 @@ class Teams extends React.Component {
             showModal = true;
         }
 
+        if (nextState.teams.length) {
+            showTopScorers = true;
+        }
+
         this.setState({
             teams: nextState.teams,
             teamInfo: teamInfo,
-            modalIsOpen: showModal
+            modalIsOpen: showModal,
+            showTopScorers: showTopScorers
         });
     }
 
@@ -152,6 +159,10 @@ class Teams extends React.Component {
 
         this.props.onClickTeamName(teamId);
     }
+
+    onClickTopScorers = () => {
+        console.log('top scorers clicked', this.props.selectedSeason)
+    }
     
     closeModal = () => {
         this.setState({modalIsOpen: false});
@@ -207,6 +218,10 @@ class Teams extends React.Component {
                         ))}
                     </ul>
                 </Modal>
+
+                {this.state.showTopScorers &&
+                    <button onClick={this.onClickTopScorers}>Show top scorers</button>
+                }
             </div>
         );
     }
