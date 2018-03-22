@@ -5,8 +5,8 @@ const INITIAL_STATE = {
     leagues: [],
     seasons: [],
     teamInfo: {
-        teamName: '',
-        teamImagePath: '',
+        team_name: '',
+        team_image: '',
         squad: []
     }
 }
@@ -64,15 +64,9 @@ function getTeams(state, teams) {
 }
 
 function getTeamInfo(state, team) {
-    // let squad = team.data.squad.data.map(player => {
-    //     return {
-    //         id: player.id
-    //     }
-    // })
-    // console.log('reducer', team);
-
     return {
-        ...state
+        ...state,
+        teamInfo: team
     }
 }
 

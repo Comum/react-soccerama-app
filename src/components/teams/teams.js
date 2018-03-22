@@ -23,16 +23,34 @@ class Teams extends React.Component {
             columns: this.getHeaders(),
             modalIsOpen: false,
             teamInfo: {
-                teamName: '',
-                teamImagePath: '',
+                team_name: '',
+                team_image: '',
                 squad: []
             }
         }
     }
 
     componentWillReceiveProps(nextState) {
+        let teamInfo = {
+            team_name: '',
+            team_image: '',
+            squad: []
+        };
+        let showModal = false;
+
+        if (nextState.teamInfo.squad.length) {
+            teamInfo = {
+                team_name: nextState.teamInfo.team_name,
+                team_image: nextState.teamInfo.team_image,
+                squad: nextState.teamInfo.squad
+            };
+            showModal = true;
+        }
+
         this.setState({
-            teams: nextState.teams
+            teams: nextState.teams,
+            teamInfo: teamInfo,
+            modalIsOpen: showModal
         });
     }
 
@@ -132,8 +150,6 @@ class Teams extends React.Component {
     onClickTeamName = (evt) => {
         let teamId = evt.target.getAttribute('data-team-id');
 
-        // console.log(evt.target.innerHTML, evt.target.getAttribute('data-team-id'));
-        // this.setState({modalIsOpen: true});
         this.props.onClickTeamName(teamId);
     }
     
@@ -183,15 +199,13 @@ class Teams extends React.Component {
 
                     <button onClick={this.closeModal}>close</button>
                     
-
-                    <div>I am a modal</div>
-                    <form>
-                        <input />
-                        <button>tab navigation</button>
-                        <button>stays</button>
-                        <button>inside</button>
-                        <button>the modal</button>
-                    </form>
+                    <h2>{this.state.teamInfo.team_name}</h2>
+                    <img src={this.state.teamInfo.team_image} alt="team_logo"/>
+                    <ul>
+                        {this.state.teamInfo.squad.map(player => (
+                            <li key={player.id}>{player.name}</li>
+                        ))}
+                    </ul>
                 </Modal>
             </div>
         );

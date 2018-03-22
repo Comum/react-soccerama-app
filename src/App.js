@@ -13,6 +13,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('app', this.props);
     return (
       <div>
         <Header leagues={this.props.info.leagues}
@@ -20,6 +21,7 @@ class App extends Component {
                 onChangeLeague={this.props.onChangeLeague}
                 onChangeSeason={this.props.onChangeSeason}/>
         <Teams  teams={this.props.info.teams}
+                teamInfo={this.props.info.teamInfo}
                 onClickTeamName={this.props.onClickTeamName}/>
       </div>
     );

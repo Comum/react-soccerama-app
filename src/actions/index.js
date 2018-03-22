@@ -57,29 +57,32 @@ export const specificTeamInfo = teamId => {
         return fetch(`${SERVER_URL}/teams/${teamId}?api_token=${API_TOKEN}&include=squad`)
             .then(response => response.json())
             .then(json => {
-                // dispatch(receiveTeamInfo(json))
+                let team = {
+                    team_name: json.data.name,
+                    team_image: json.data.logo_path,
+                    squad: []
+                };
+
                 return new Promise(resolve => {
                     let squad = [];
                     let playersProcessed = 0;
                 
-                    json.data.squad.data.forEach(player => {
-                        if (playersProcessed === json.data.squad.data.length - 1) {
-                            resolve(squad);
-                        }
+                    json.data.squad.data.forEach((player, index) => {
                         fetch(`${SERVER_URL}/players/${player.player_id}?api_token=${API_TOKEN}`)
                             .then(response => response.json())
-                            .then(json => {
-                                squad.push({
-                                    id: json.data.player_id,
-                                    name: json.data.fullname
+                            .then(playerInfo => {
+                                team.squad.push({
+                                    id: playerInfo.data.player_id,
+                                    name: playerInfo.data.fullname
                                 });
-                                playersProcessed++;
+
+                                if (index === json.data.squad.data.length - 1) {
+                                    resolve(team);
+                                }
                             });
-                    })
+                    });
                 });
             })
-            .then(value => {
-                console.log('squad', value);
-            });
+            .then(value => dispatch(receiveTeamInfo(value)));
     }
 }
