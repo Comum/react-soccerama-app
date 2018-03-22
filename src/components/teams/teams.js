@@ -66,6 +66,7 @@ class Teams extends React.Component {
         let newHeaderColumn;
         let newHeaderColumns = [];
         let newTeamOrder = [];
+        let orderInverter = 1;
 
         switch(headerState) {
             case 'default':
@@ -73,6 +74,7 @@ class Teams extends React.Component {
                 break;
             case 'topBorder':
                 newHeaderState = 'bottomBorder';
+                orderInverter = -1;
                 break;
             default:
                 newHeaderState = 'default';
@@ -90,7 +92,16 @@ class Teams extends React.Component {
         ];
 
         newTeamOrder = this.state.teams.sort((a, b) => {
-            return a.comparingTerm - b.comparingTerm;
+            let diff = 0;
+
+            if (a[comparingTerm] < b[comparingTerm]) {
+                diff = -1;
+            }
+            if(a[comparingTerm] > b[comparingTerm]) {
+                diff = 1;
+            }
+
+            return diff * orderInverter;
         });
 
         this.setState({

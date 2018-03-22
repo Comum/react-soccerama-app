@@ -54,10 +54,12 @@ body {
 
 .Teams--header--topBorder {
     border-top: 1px solid grey;
+    margin-top: -1px;
 }
 
 .Teams--header--bottomBorder {
     border-bottom: 1px solid grey;
+    margin-bottom: -1px;
 }
 
 .Teams--body {
