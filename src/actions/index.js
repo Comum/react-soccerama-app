@@ -51,3 +51,35 @@ export const teamsInfo = seasonId => {
     }
 }
 
+const receiveTeamInfo = createAction(socceramaActions.GET_TEAM_INFO);
+export const specificTeamInfo = teamId => {
+    return dispatch => {
+        return fetch(`${SERVER_URL}/teams/${teamId}?api_token=${API_TOKEN}&include=squad`)
+            .then(response => response.json())
+            .then(json => {
+                // dispatch(receiveTeamInfo(json))
+                return new Promise(resolve => {
+                    let squad = [];
+                    let playersProcessed = 0;
+                
+                    json.data.squad.data.forEach(player => {
+                        if (playersProcessed === json.data.squad.data.length - 1) {
+                            resolve(squad);
+                        }
+                        fetch(`${SERVER_URL}/players/${player.player_id}?api_token=${API_TOKEN}`)
+                            .then(response => response.json())
+                            .then(json => {
+                                squad.push({
+                                    id: json.data.player_id,
+                                    name: json.data.fullname
+                                });
+                                playersProcessed++;
+                            });
+                    })
+                });
+            })
+            .then(value => {
+                console.log('squad', value);
+            });
+    }
+}

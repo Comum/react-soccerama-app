@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import './App.css';
 import Header from './components/header/header.js';
 import Teams from './components/teams/teams.js';
-import { seasonsInfo, teamsInfo } from './actions/index.js';
+import { seasonsInfo, teamsInfo, specificTeamInfo } from './actions/index.js';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class App extends Component {
                 seasons={this.props.info.seasons}
                 onChangeLeague={this.props.onChangeLeague}
                 onChangeSeason={this.props.onChangeSeason}/>
-        <Teams teams={this.props.info.teams} />
+        <Teams  teams={this.props.info.teams}
+                onClickTeamName={this.props.onClickTeamName}/>
       </div>
     );
   }
@@ -38,6 +39,9 @@ function mapDispatchToProps(dispatch) {
     },
     onChangeSeason: (...args) => {
       dispatch(teamsInfo(...args))
+    },
+    onClickTeamName: (...args) => {
+      dispatch(specificTeamInfo(...args))
     }
   }
 };

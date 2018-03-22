@@ -3,7 +3,12 @@ import teams from '../actions/teamsActions';
 const INITIAL_STATE = {
     teams: [],
     leagues: [],
-    seasons: []
+    seasons: [],
+    teamInfo: {
+        teamName: '',
+        teamImagePath: '',
+        squad: []
+    }
 }
 
 function getLeagues(state, leaguesInfo) {
@@ -58,6 +63,19 @@ function getTeams(state, teams) {
     };
 }
 
+function getTeamInfo(state, team) {
+    // let squad = team.data.squad.data.map(player => {
+    //     return {
+    //         id: player.id
+    //     }
+    // })
+    // console.log('reducer', team);
+
+    return {
+        ...state
+    }
+}
+
 export default (state, action) => {
     if (typeof state === 'undefined') {
         state = INITIAL_STATE;
@@ -69,6 +87,8 @@ export default (state, action) => {
             return getSeasons(state, action.data);
         case teams.GET_TEAMS_INFO:
             return getTeams(state, action.data);
+        case teams.GET_TEAM_INFO:
+            return getTeamInfo(state, action.data);
         default:
             return state;
     }

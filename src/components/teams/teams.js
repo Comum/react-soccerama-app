@@ -1,6 +1,18 @@
 import React from 'react';
+import Modal from 'react-modal';
 
 import { getHeaderOptionValue } from '../../lib/util.js';
+
+const customStyles = {
+    content : {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  };
 
 class Teams extends React.Component {
     constructor(props) {
@@ -8,7 +20,13 @@ class Teams extends React.Component {
         this.props = props;
         this.state = {
             teams: props.teams,
-            columns: this.getHeaders()
+            columns: this.getHeaders(),
+            modalIsOpen: false,
+            teamInfo: {
+                teamName: '',
+                teamImagePath: '',
+                squad: []
+            }
         }
     }
 
@@ -60,6 +78,7 @@ class Teams extends React.Component {
     }
 
     onHeaderClick (i) {
+        // TODO: needs refactoring
         const headerState = this.state.columns[i].searchState;
         const comparingTerm = getHeaderOptionValue(i);
         let newHeaderState = '';
@@ -110,9 +129,20 @@ class Teams extends React.Component {
         });
     }
 
-    render() {
-        console.log(this.state.teams);
+    onClickTeamName = (evt) => {
+        let teamId = evt.target.getAttribute('data-team-id');
 
+        // console.log(evt.target.innerHTML, evt.target.getAttribute('data-team-id'));
+        // this.setState({modalIsOpen: true});
+        this.props.onClickTeamName(teamId);
+    }
+    
+    closeModal = () => {
+        this.setState({modalIsOpen: false});
+    }
+
+    render() {
+        console.log('team props', this.props);
         return (
             <div className="Teams">
                 <ul className="Teams--header">
@@ -125,12 +155,13 @@ class Teams extends React.Component {
                         </li>
                     ))}
                 </ul>
+                
                 <ul className="Teams--body">
                     {this.state.teams.map(team => (
                         <li key={team.id} className="Teams--body--fieldRow">
                             <ul className="Teams--body--content">
                                 <li className="Teams--body--contentField">{team.position}</li>
-                                <li className="Teams--body--contentField">{team.team_name}</li>
+                                <li className="Teams--body--contentField" onClick={this.onClickTeamName} data-team-id={team.id}>{team.team_name}</li>
                                 <li className="Teams--body--contentField">{team.played}</li>
                                 <li className="Teams--body--contentField">{team.won}</li>
                                 <li className="Teams--body--contentField">{team.drawn}</li>
@@ -142,6 +173,26 @@ class Teams extends React.Component {
                         </li>
                     ))}
                 </ul>
+
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Team Modal"
+                    >
+
+                    <button onClick={this.closeModal}>close</button>
+                    
+
+                    <div>I am a modal</div>
+                    <form>
+                        <input />
+                        <button>tab navigation</button>
+                        <button>stays</button>
+                        <button>inside</button>
+                        <button>the modal</button>
+                    </form>
+                </Modal>
             </div>
         );
     }
