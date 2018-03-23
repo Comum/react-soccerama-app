@@ -1,24 +1,18 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import { getHeaderOptionValue, getHeaders } from '../../lib/util.js';
 import Goalscorers from '../goalscorers/goalscorers.js';
 import Team from './team.js';
 import TeamModal from './teamModal.js';
 import PlayerModal from './playerModal.js';
-
-//TODO: move to another file ../lib/helpers.js
-const customStyles = {
-    content : {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        'max-height': '500px'
-    }
-};
+import {
+    getHeaderOptionValue,
+    getHeaders,
+    getNewHeaderState,
+    getNewHeaderColumns,
+    getNewTeamOrder
+} from '../../lib/util.js';
+import { customStyles } from '../../lib/helpers.js';
 
 class Teams extends React.Component {
     constructor(props) {
@@ -98,53 +92,24 @@ class Teams extends React.Component {
     }
 
     onHeaderClick (i) {
-        // TODO: needs refactoring
         const headerState = this.state.columns[i].searchState;
         const comparingTerm = getHeaderOptionValue(i);
         let newHeaderState = '';
         let newHeaderColumn;
         let newHeaderColumns = [];
         let newTeamOrder = [];
-        let orderInverter = 1;
+        let orderInverter;
 
-        // TODO: move to util
-        switch(headerState) {
-            case 'default':
-                newHeaderState = 'topBorder';
-                break;
-            case 'topBorder':
-                newHeaderState = 'bottomBorder';
-                orderInverter = -1;
-                break;
-            default:
-                newHeaderState = 'default';
-        }
+        newHeaderState = getNewHeaderState(headerState);
+        orderInverter = newHeaderState === 'bottomBorder' ? -1 : 1;
 
         newHeaderColumn = {
             name: this.state.columns[i].name,
             searchState: newHeaderState
         }
 
-        // TODO: move to util
-        newHeaderColumns = [
-            ...this.state.columns.slice(0, i),
-            newHeaderColumn,
-            ...this.state.columns.slice(i + 1)
-        ];
-
-        // TODO: move to util
-        newTeamOrder = this.state.teams.sort((a, b) => {
-            let diff = 0;
-
-            if (a[comparingTerm] < b[comparingTerm]) {
-                diff = -1;
-            }
-            if(a[comparingTerm] > b[comparingTerm]) {
-                diff = 1;
-            }
-
-            return diff * orderInverter;
-        });
+        newHeaderColumns = getNewHeaderColumns(this.state.columns, newHeaderColumn, i);
+        newTeamOrder = getNewTeamOrder(this.state.teams, orderInverter, comparingTerm);
 
         this.setState({
             columns: newHeaderColumns,
