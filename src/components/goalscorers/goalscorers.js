@@ -25,7 +25,7 @@ class Goalscorers extends React.Component {
             <div className="Scorers--container m-t-16">
                 <ul className="Scorers">
                     <li>
-                        <ul className="Scorers--row">
+                        <ul className="Scorers--row Scorers--headerContainer">
                             <li className="Scorers--header">Player</li>
                             <li className="Scorers--header">Goals</li>
                             <li className="Scorers--header">Penalty Goals</li>

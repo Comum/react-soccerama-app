@@ -207,6 +207,12 @@ body {
     align-content: center;
 }
 
+.Scorers--headerContainer {
+    height: 50px;
+
+    border-bottom: 2px solid black;
+}
+
 .Scorers--header {
     width: 100px;
 
