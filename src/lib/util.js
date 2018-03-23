@@ -1,5 +1,6 @@
 module.exports = {
-    getHeaderOptionValue: getHeaderOptionValue
+    getHeaderOptionValue: getHeaderOptionValue,
+    getHeaders: getHeaders
 };
 
 /**
@@ -25,4 +26,48 @@ function getHeaderOptionValue(i) {
         case 7:
             return 'points';
     }
+}
+
+/**
+ * @return {array}
+ */
+function getHeaders() {
+    let columns = [{
+        name: 'Position',
+        searchState: 'default' 
+    },
+    {
+        name: 'Team Name',
+        searchState: 'default' 
+    },
+    {
+        name: 'Played',
+        searchState: 'default' 
+    },
+    {
+        name: 'Won',
+        searchState: 'default' 
+    },
+    {
+        name: 'Drawn',
+        searchState: 'default' 
+    },
+    {
+        name: 'Lost',
+        searchState: 'default' 
+    },
+    {
+        name: 'Goal',
+        searchState: 'default' 
+    },
+    {
+        name: 'Difference',
+        searchState: 'default' 
+    },
+    {
+        name: 'Points',
+        searchState: 'default' 
+    }];
+
+    return columns;
 }

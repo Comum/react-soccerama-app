@@ -1,8 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import { getHeaderOptionValue } from '../../lib/util.js';
+import { getHeaderOptionValue, getHeaders } from '../../lib/util.js';
 import Goalscorers from '../goalscorers/goalscorers.js';
+import Team from './team.js'
 
 const customStyles = {
     content : {
@@ -21,7 +22,7 @@ class Teams extends React.Component {
         this.props = props;
         this.state = {
             teams: props.teams,
-            columns: this.getHeaders(),
+            columns: getHeaders(),
             modalIsOpen: false,
             showTopScorersButton: false,
             showTopScorersTable: false,
@@ -69,47 +70,6 @@ class Teams extends React.Component {
             showTopScorersButton: showTopScorersButton,
             showTopScorersTable: showTopScorersTable
         });
-    }
-
-    getHeaders() {
-        let columns = [{
-            name: 'Position',
-            searchState: 'default' 
-        },
-        {
-            name: 'Team Name',
-            searchState: 'default' 
-        },
-        {
-            name: 'Played',
-            searchState: 'default' 
-        },
-        {
-            name: 'Won',
-            searchState: 'default' 
-        },
-        {
-            name: 'Drawn',
-            searchState: 'default' 
-        },
-        {
-            name: 'Lost',
-            searchState: 'default' 
-        },
-        {
-            name: 'Goal',
-            searchState: 'default' 
-        },
-        {
-            name: 'Difference',
-            searchState: 'default' 
-        },
-        {
-            name: 'Points',
-            searchState: 'default' 
-        }];
-
-        return columns;
     }
 
     onHeaderClick (i) {
@@ -164,12 +124,6 @@ class Teams extends React.Component {
         });
     }
 
-    onClickTeamName = (evt) => {
-        let teamId = evt.target.getAttribute('data-team-id');
-
-        this.props.onClickTeamName(teamId);
-    }
-
     onClickTopScorers = () => {
         console.log('top scorers clicked', this.props.selectedSeason);
         this.props.onClickScorers(this.props.selectedSeason);
@@ -196,19 +150,8 @@ class Teams extends React.Component {
                 
                 <ul className="Teams--body">
                     {this.state.teams.map(team => (
-                        <li key={team.id} className="Teams--body--fieldRow">
-                            <ul className="Teams--body--content">
-                                <li className="Teams--body--contentField">{team.position}</li>
-                                <li className="Teams--body--contentField" onClick={this.onClickTeamName} data-team-id={team.id}>{team.team_name}</li>
-                                <li className="Teams--body--contentField">{team.played}</li>
-                                <li className="Teams--body--contentField">{team.won}</li>
-                                <li className="Teams--body--contentField">{team.drawn}</li>
-                                <li className="Teams--body--contentField">{team.lost}</li>
-                                <li className="Teams--body--contentField">{team.goal}</li>
-                                <li className="Teams--body--contentField">{team.difference}</li>
-                                <li className="Teams--body--contentField">{team.points}</li>
-                            </ul>
-                        </li>
+                        <Team   team={team}
+                                onClickTeamName={this.props.onClickTeamName}  />
                     ))}
                 </ul>
 
