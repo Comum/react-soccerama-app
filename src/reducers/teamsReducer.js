@@ -51,8 +51,6 @@ function getSeasons(state, seasonsInfo) {
 
 function getTeams(state, data) {
     let result = filterTeams(data.teams.data[0].standings.data);
-    console.log(data.teams.data[0].standings.data)
-    console.log(result)
 
     return {
         ...state,
