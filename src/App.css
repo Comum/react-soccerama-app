@@ -134,6 +134,10 @@ body {
     
     border-radius: 10px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     cursor: pointer;
 
     position: absolute;
@@ -141,7 +145,7 @@ body {
     right: 0;
 }
 
-.TeamModal--closeButton {
+.TeamModal--teamName {
     width: 100%;
 
     text-align: center;
