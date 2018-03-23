@@ -15,6 +15,10 @@ class Goalscorers extends React.Component {
         });
     }
 
+    onPlayerClick = (evt) => {
+        this.props.onClickPlayer(evt.target.getAttribute('data-player-id'));
+    }
+
     render() {
         console.log(this.state.goalscorers);
         return (
@@ -31,7 +35,11 @@ class Goalscorers extends React.Component {
                         return (
                             <li className="Scorers--playerRow" key={player.id}>
                                 <ul className="Scorers--row">
-                                    <li className="Scorers--playerField">{player.name}</li>
+                                    <li className="Scorers--playerField cursor-pointer"
+                                        onClick={this.onPlayerClick}
+                                        data-player-id={player.id}
+                                        >
+                                        {player.name}</li>
                                     <li className="Scorers--playerField">{player.goals}</li>
                                     <li className="Scorers--playerField">{player.penalty_goals}</li>
                                 </ul>

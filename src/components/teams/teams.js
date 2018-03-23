@@ -5,7 +5,9 @@ import { getHeaderOptionValue, getHeaders } from '../../lib/util.js';
 import Goalscorers from '../goalscorers/goalscorers.js';
 import Team from './team.js';
 import TeamModal from './teamModal.js';
+import PlayerModal from './playerModal.js';
 
+//TODO: move to another file ../lib/helpers.js
 const customStyles = {
     content : {
         top: '50%',
@@ -25,13 +27,20 @@ class Teams extends React.Component {
         this.state = {
             teams: props.teams,
             columns: getHeaders(),
-            modalIsOpen: false,
+            teamModalIsOpen: false,
+            playerModalIsOpen: false,
             showTopScorersButtons: false,
             showTopScorersTable: false,
             teamInfo: {
                 team_name: '',
                 team_image: '',
                 squad: []
+            },
+            playerInfo: {
+                fullname: '',
+                image_path: '',
+                nationality: '',
+                weight: ''
             },
             goalscorers: []
         }
@@ -43,7 +52,14 @@ class Teams extends React.Component {
             team_image: '',
             squad: []
         };
-        let showModal = false;
+        let playerInfo = {
+            fullname: '',
+            image_path: '',
+            nationality: '',
+            weight: ''
+        };
+        let showTeamModal = false;
+        let showPlayerModal = false;
         let showTopScorersButtons = false;
         let showTopScorersTable = false;
 
@@ -53,7 +69,12 @@ class Teams extends React.Component {
                 team_image: nextState.teamInfo.team_image,
                 squad: nextState.teamInfo.squad
             };
-            showModal = true;
+            showTeamModal = true;
+        }
+
+        if (nextState.playerInfo.fullname.length) {
+            playerInfo = nextState.playerInfo;
+            showPlayerModal = true;
         }
 
         if (nextState.teams.length) {
@@ -68,7 +89,9 @@ class Teams extends React.Component {
         this.setState({
             teams: nextState.teams,
             teamInfo: teamInfo,
-            modalIsOpen: showModal,
+            playerInfo: playerInfo,
+            teamModalIsOpen: showTeamModal,
+            playerModalIsOpen: showPlayerModal,
             showTopScorersButtons: showTopScorersButtons,
             showTopScorersTable: showTopScorersTable
         });
@@ -134,7 +157,13 @@ class Teams extends React.Component {
     }
     
     closeModal = () => {
-        this.setState({modalIsOpen: false});
+        this.props.removeTeamInfo();
+        this.props.removePlayerInfo();
+
+        this.setState({
+            teamModalIsOpen: false,
+            playerModalIsOpen: false
+        });
     }
 
     render() {
@@ -161,7 +190,7 @@ class Teams extends React.Component {
                 </ul>
 
                 <Modal
-                    isOpen={this.state.modalIsOpen}
+                    isOpen={this.state.teamModalIsOpen}
                     onRequestClose={this.closeModal}
                     style={customStyles}
                     contentLabel="Team Modal"
@@ -174,12 +203,23 @@ class Teams extends React.Component {
                 {this.state.showTopScorersButtons &&
                     <div className="buttonsContainer">
                         <button className="m-r-8" onClick={this.onClickTopScorers}>Show top goal scorers</button>
-                        <button className="m-r-8" onClick={this.onClickTopScorers}>Show top assist scorers</button>
-                        <button className="m-r-8" onClick={this.onClickTopScorers}>Show top card scorers</button>
                     </div>
                 }
                 {this.state.showTopScorersTable &&
-                    <Goalscorers goalscorers={this.props.goalscorers}/>
+                    <div>
+                        <Goalscorers    goalscorers={this.props.goalscorers}
+                                        onClickPlayer={this.props.onClickPlayer}/>
+                        <Modal
+                            isOpen={this.state.playerModalIsOpen}
+                            onRequestClose={this.closeModal}
+                            style={customStyles}
+                            contentLabel="Team Modal"
+                            >
+
+                            <PlayerModal    closeModal={this.closeModal}
+                                            playerInfo={this.state.playerInfo}/>
+                        </Modal>
+                    </div>
                 }
             </div>
         );

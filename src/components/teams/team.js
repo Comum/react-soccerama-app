@@ -26,7 +26,7 @@ class Team extends React.Component {
             <li key={this.state.team.id} className="Teams--body--fieldRow">
                 <ul className="Teams--body--content">
                     <li className="Teams--body--contentField">{this.state.team.position}</li>
-                    <li className="Teams--body--contentField" onClick={this.onClickTeamName} data-team-id={this.state.team.id}>{this.state.team.team_name}</li>
+                    <li className="Teams--body--contentField cursor-pointer" onClick={this.onClickTeamName} data-team-id={this.state.team.id}>{this.state.team.team_name}</li>
                     <li className="Teams--body--contentField">{this.state.team.played}</li>
                     <li className="Teams--body--contentField">{this.state.team.won}</li>
                     <li className="Teams--body--contentField">{this.state.team.drawn}</li>

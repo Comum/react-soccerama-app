@@ -17,14 +17,14 @@ class TeamModal extends React.Component {
     
     render() {
         return (
-            <div className="TeamModal">
-                <button className="TeamModal--closeButton" onClick={this.props.closeModal}>x</button>
+            <div className="Modal">
+                <button className="Modal--closeButton" onClick={this.props.closeModal}>x</button>
                     
-                <h2 className="TeamModal--teamName m-t-16">{this.state.teamInfo.team_name}</h2>
-                <img className="TeamModal--teamName" src={this.state.teamInfo.team_image} alt="team_logo"/>
-                <ul className="TeamModal--teamSquad">
+                <h2 className="Modal--center m-t-16">{this.state.teamInfo.team_name}</h2>
+                <img className="Modal--center" src={this.state.teamInfo.team_image} alt="team_logo"/>
+                <ul className="Modal--content">
                     {this.state.teamInfo.squad.map(player => (
-                        <li className="TeamModal--teamSquad--player" key={player.id}>{player.name}</li>
+                        <li key={player.id}>{player.name}</li>
                     ))}
                 </ul>
             </div>

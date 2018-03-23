@@ -4,7 +4,15 @@ import {connect} from 'react-redux';
 import './App.css';
 import Header from './components/header/header.js';
 import Teams from './components/teams/teams.js';
-import { seasonsInfo, teamsInfo, specificTeamInfo, scorersInfo } from './actions/index.js';
+import {
+  seasonsInfo,
+  teamsInfo,
+  specificTeamInfo,
+  scorersInfo,
+  playerInfo,
+  dropTeamInfo,
+  dropPlayerInfo
+} from './actions/index.js';
 
 class App extends Component {
   constructor(props) {
@@ -22,10 +30,14 @@ class App extends Component {
                 onChangeSeason={this.props.onChangeSeason}/>
         <Teams  teams={this.props.info.teams}
                 teamInfo={this.props.info.teamInfo}
+                playerInfo={this.props.info.playerInfo}
                 selectedSeason={this.props.info.selectedSeason}
                 onClickTeamName={this.props.onClickTeamName}
                 onClickScorers={this.props.onClickScorers}
-                goalscorers={this.props.info.goalscorers}/>
+                goalscorers={this.props.info.goalscorers}
+                onClickPlayer={this.props.onClickPlayer}
+                removeTeamInfo={this.props.removeTeamInfo}
+                removePlayerInfo={this.props.removePlayerInfo}/>
       </div>
     );
   }
@@ -50,6 +62,15 @@ function mapDispatchToProps(dispatch) {
     },
     onClickScorers: (...args) => {
       dispatch(scorersInfo(...args))
+    },
+    onClickPlayer: (...args) => {
+      dispatch(playerInfo(...args))
+    },
+    removeTeamInfo: (...args) => {
+      dispatch(dropTeamInfo(...args))
+    },
+    removePlayerInfo: (...args) => {
+      dispatch(dropPlayerInfo(...args))
     }
   }
 };

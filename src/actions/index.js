@@ -120,3 +120,22 @@ export const scorersInfo = seasonId => {
             .then(value => dispatch(receiveScorersInfo(value)));
     }
 }
+
+const receivePlayerInfo = createAction(socceramaActions.GET_PLAYER_INFO);
+export const playerInfo = playerId => {
+    return dispatch => {
+        return fetch(`${SERVER_URL}/players/${playerId}?api_token=${API_TOKEN}`)
+            .then(response => response.json())
+            .then(json => dispatch(receivePlayerInfo(json)))
+    }
+}
+
+const removeTeamInfo = createAction(socceramaActions.REMOVE_TEAM_INFO);
+export const dropTeamInfo = _ => {
+    return dispatch => dispatch(removeTeamInfo())
+}
+
+const removePlayerInfo = createAction(socceramaActions.REMOVE_PLAYER_INFO);
+export const dropPlayerInfo = _ => {
+    return dispatch => dispatch(removePlayerInfo())
+}
