@@ -18,7 +18,7 @@ const INITIAL_STATE = {
         nationality: '',
         weight: ''
     }
-}
+};
 
 function filterLeaguesInfo(info) {
     return info.map(league => {
@@ -39,7 +39,7 @@ function getLeagues(state, leaguesInfo) {
 }
 
 function getSeasons(state, seasonsInfo) {
-    let seasons = filterSeasons(seasonsInfo)
+    let seasons = filterSeasons(seasonsInfo);
 
     return {
         ...state,
@@ -51,6 +51,8 @@ function getSeasons(state, seasonsInfo) {
 
 function getTeams(state, data) {
     let result = filterTeams(data.teams.data[0].standings.data);
+    console.log(data.teams.data[0].standings.data)
+    console.log(result)
 
     return {
         ...state,
