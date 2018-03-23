@@ -109,7 +109,6 @@ class Teams extends React.Component {
         }
 
         newHeaderColumns = getNewHeaderColumns(this.state.columns, newHeaderColumn, i);
-        console.log(this.state.teams, orderInverter, comparingTerm);
         newTeamOrder = getNewTeamOrder(this.state.teams, orderInverter, comparingTerm);
 
         this.setState({
