@@ -3,7 +3,8 @@ import Modal from 'react-modal';
 
 import { getHeaderOptionValue, getHeaders } from '../../lib/util.js';
 import Goalscorers from '../goalscorers/goalscorers.js';
-import Team from './team.js'
+import Team from './team.js';
+import TeamModal from './teamModal.js';
 
 const customStyles = {
     content : {
@@ -12,7 +13,8 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        'max-height': '500px'
     }
 };
 
@@ -150,7 +152,8 @@ class Teams extends React.Component {
                 
                 <ul className="Teams--body">
                     {this.state.teams.map(team => (
-                        <Team   team={team}
+                        <Team   key={team.id}
+                                team={team}
                                 onClickTeamName={this.props.onClickTeamName}  />
                     ))}
                 </ul>
@@ -162,15 +165,8 @@ class Teams extends React.Component {
                     contentLabel="Team Modal"
                     >
 
-                    <button onClick={this.closeModal}>close</button>
-                    
-                    <h2>{this.state.teamInfo.team_name}</h2>
-                    <img src={this.state.teamInfo.team_image} alt="team_logo"/>
-                    <ul>
-                        {this.state.teamInfo.squad.map(player => (
-                            <li key={player.id}>{player.name}</li>
-                        ))}
-                    </ul>
+                    <TeamModal  closeModal={this.closeModal}
+                                teamInfo={this.state.teamInfo}/>
                 </Modal>
 
                 {this.state.showTopScorersButton &&
