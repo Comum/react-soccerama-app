@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('app', this.props);
     return (
       <div>
         <Header leagues={this.props.info.leagues}

@@ -20,7 +20,6 @@ class Goalscorers extends React.Component {
     }
 
     render() {
-        console.log(this.state.goalscorers);
         return (
             <div className="Scorers--container m-t-16">
                 <ul className="Scorers">

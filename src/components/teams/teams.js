@@ -167,7 +167,6 @@ class Teams extends React.Component {
     }
 
     render() {
-        console.log('team props', this.props);
         return (
             <div className="Teams">
                 <ul className="Teams--header">
