@@ -1,4 +1,5 @@
 import teams from '../actions/teamsActions';
+import { filterSeasons, filterTeams } from '../lib/util.js';
 
 const INITIAL_STATE = {
     teams: [],
@@ -38,13 +39,7 @@ function getLeagues(state, leaguesInfo) {
 }
 
 function getSeasons(state, seasonsInfo) {
-    // TODO: make into a function
-    let seasons = seasonsInfo.map(season => {
-        return {
-            id: season.id,
-            name: season.name
-        };
-    });
+    let seasons = filterSeasons(seasonsInfo)
 
     return {
         ...state,
@@ -55,21 +50,7 @@ function getSeasons(state, seasonsInfo) {
 
 
 function getTeams(state, data) {
-    // TODO: make into a function
-    let result = data.teams.data[0].standings.data.map(team => {
-        return {
-            id: team.team_id,
-            position: team.position,
-            team_name: team.team_name,
-            played: team.overall.games_played, 
-            won: team.overall.won,
-            drawn: team.overall.draw,
-            lost: team.overall.lost,
-            goal: team.overall.goals_scored,
-            difference: team.total.goal_difference,
-            points: team.total.points
-        }
-    });
+    let result = filterTeams(data.teams.data[0].standings.data);
 
     return {
         ...state,

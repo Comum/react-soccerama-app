@@ -118,10 +118,42 @@ function getNewTeamOrder(teams, orderInverter, comparingTerm) {
     });
 }
 
+/**
+ * @param {array} seasons
+ * @return {array} 
+ */
+function filterSeasons(seasons) {
+    return seasons.map(season => {
+        return {
+            id: season.id,
+            name: season.name
+        };
+    });
+}
+
+function filterTeams(teams) {
+    return teams.map(team => {
+        return {
+            id: team.team_id,
+            position: team.position,
+            team_name: team.team_name,
+            played: team.overall.games_played, 
+            won: team.overall.won,
+            drawn: team.overall.draw,
+            lost: team.overall.lost,
+            goal: team.overall.goals_scored,
+            difference: team.total.goal_difference,
+            points: team.total.points
+        }
+    });
+}
+
 module.exports = {
     getHeaderOptionValue: getHeaderOptionValue,
     getHeaders: getHeaders,
     getNewHeaderState: getNewHeaderState,
     getNewHeaderColumns: getNewHeaderColumns,
-    getNewTeamOrder: getNewTeamOrder
+    getNewTeamOrder: getNewTeamOrder,
+    filterSeasons: filterSeasons,
+    filterTeams: filterTeams
 };
