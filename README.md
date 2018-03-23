@@ -9,7 +9,7 @@ Web app that uses react to intereact with the [soccerama](https://www.sportmonks
 
 ```bash
 npm install
-npm or npm start
+npm start
 open http://localhost:3000
 ```
 
