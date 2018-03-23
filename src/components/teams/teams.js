@@ -107,7 +107,7 @@ class Teams extends React.Component {
             name: this.state.columns[i].name,
             searchState: newHeaderState
         }
-
+        
         newHeaderColumns = getNewHeaderColumns(this.state.columns, newHeaderColumn, i);
         newTeamOrder = getNewTeamOrder(this.state.teams, orderInverter, comparingTerm);
 
