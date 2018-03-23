@@ -26,7 +26,7 @@ class Teams extends React.Component {
             teams: props.teams,
             columns: getHeaders(),
             modalIsOpen: false,
-            showTopScorersButton: false,
+            showTopScorersButtons: false,
             showTopScorersTable: false,
             teamInfo: {
                 team_name: '',
@@ -44,7 +44,7 @@ class Teams extends React.Component {
             squad: []
         };
         let showModal = false;
-        let showTopScorersButton = false;
+        let showTopScorersButtons = false;
         let showTopScorersTable = false;
 
         if (nextState.teamInfo.squad.length) {
@@ -57,7 +57,7 @@ class Teams extends React.Component {
         }
 
         if (nextState.teams.length) {
-            showTopScorersButton = true;
+            showTopScorersButtons = true;
         }
 
         
@@ -69,7 +69,7 @@ class Teams extends React.Component {
             teams: nextState.teams,
             teamInfo: teamInfo,
             modalIsOpen: showModal,
-            showTopScorersButton: showTopScorersButton,
+            showTopScorersButtons: showTopScorersButtons,
             showTopScorersTable: showTopScorersTable
         });
     }
@@ -169,8 +169,12 @@ class Teams extends React.Component {
                                 teamInfo={this.state.teamInfo}/>
                 </Modal>
 
-                {this.state.showTopScorersButton &&
-                    <button className="m-t-16" onClick={this.onClickTopScorers}>Show top scorers</button>
+                {this.state.showTopScorersButtons &&
+                    <div className="buttonsContainer">
+                        <button className="m-r-8" onClick={this.onClickTopScorers}>Show top goal scorers</button>
+                        <button className="m-r-8" onClick={this.onClickTopScorers}>Show top assist scorers</button>
+                        <button className="m-r-8" onClick={this.onClickTopScorers}>Show top card scorers</button>
+                    </div>
                 }
                 {this.state.showTopScorersTable &&
                     <Goalscorers goalscorers={this.props.goalscorers}/>
