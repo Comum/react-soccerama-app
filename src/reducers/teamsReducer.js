@@ -13,13 +13,17 @@ const INITIAL_STATE = {
     goalscorers: []
 }
 
-function getLeagues(state, leaguesInfo) {
-    let leagues = leaguesInfo.data.map(league => {
+function filterLeaguesInfo(info) {
+    return info.map(league => {
         return {
             id: league.id,
             name: league.name
         }
     });
+}
+
+function getLeagues(state, leaguesInfo) {
+    let leagues = filterLeaguesInfo(leaguesInfo.data);
 
     return {
         ...state,

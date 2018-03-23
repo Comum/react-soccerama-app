@@ -26,14 +26,16 @@ class Goalscorers extends React.Component {
                         <li>Penalty Goals</li>
                     </ul>
                 </li>
-                {this.state.goalscorers.map(player => { console.log('aqui');
-                    <li key={player.id}>
-                        <ul>
-                            <li>{player.name}</li>
-                            <li>{player.goals}</li>
-                            <li>{player.penalty_goals}</li>
-                        </ul>
-                    </li>
+                {this.state.goalscorers.map(player => { console.log('aqui', player);
+                    return (
+                        <li key={player.id}>
+                            <ul>
+                                <li>{player.name}</li>
+                                <li>{player.goals}</li>
+                                <li>{player.penalty_goals}</li>
+                            </ul>
+                        </li>
+                    )
                 })}
             </ul>
         );

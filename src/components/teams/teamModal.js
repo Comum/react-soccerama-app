@@ -20,7 +20,7 @@ class TeamModal extends React.Component {
             <div className="TeamModal">
                 <button className="TeamModal--closeButton" onClick={this.props.closeModal}>x</button>
                     
-                <h2 className="TeamModal--teamName">{this.state.teamInfo.team_name}</h2>
+                <h2 className="TeamModal--teamName m-t-16">{this.state.teamInfo.team_name}</h2>
                 <img className="TeamModal--teamName" src={this.state.teamInfo.team_image} alt="team_logo"/>
                 <ul className="TeamModal--teamSquad">
                     {this.state.teamInfo.squad.map(player => (
