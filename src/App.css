@@ -172,3 +172,54 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
+.Scorers--container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.Scorers {
+    width: 300px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+}
+
+.Scorers--row {
+    width: 300px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.Scorers--header {
+    width: 100px;
+
+    text-align: center;
+}
+
+.Scorers--playerField {
+    width: 100px;
+    min-height: 25px;
+
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Scorers--playerRow:nth-child(even) {
+    background-color: lightGrey;
+}

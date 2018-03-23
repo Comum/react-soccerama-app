@@ -84,6 +84,7 @@ class Teams extends React.Component {
         let newTeamOrder = [];
         let orderInverter = 1;
 
+        // TODO: move to util
         switch(headerState) {
             case 'default':
                 newHeaderState = 'topBorder';
@@ -101,12 +102,14 @@ class Teams extends React.Component {
             searchState: newHeaderState
         }
 
+        // TODO: move to util
         newHeaderColumns = [
             ...this.state.columns.slice(0, i),
             newHeaderColumn,
             ...this.state.columns.slice(i + 1)
         ];
 
+        // TODO: move to util
         newTeamOrder = this.state.teams.sort((a, b) => {
             let diff = 0;
 
@@ -127,7 +130,6 @@ class Teams extends React.Component {
     }
 
     onClickTopScorers = () => {
-        console.log('top scorers clicked', this.props.selectedSeason);
         this.props.onClickScorers(this.props.selectedSeason);
     }
     

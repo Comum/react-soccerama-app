@@ -18,26 +18,28 @@ class Goalscorers extends React.Component {
     render() {
         console.log(this.state.goalscorers);
         return (
-            <ul className="m-t-16">
-                <li>
-                    <ul>
-                        <li>Player</li>
-                        <li>Goals</li>
-                        <li>Penalty Goals</li>
-                    </ul>
-                </li>
-                {this.state.goalscorers.map(player => { console.log('aqui', player);
-                    return (
-                        <li key={player.id}>
-                            <ul>
-                                <li>{player.name}</li>
-                                <li>{player.goals}</li>
-                                <li>{player.penalty_goals}</li>
-                            </ul>
-                        </li>
-                    )
-                })}
-            </ul>
+            <div className="Scorers--container m-t-16">
+                <ul className="Scorers">
+                    <li>
+                        <ul className="Scorers--row">
+                            <li className="Scorers--header">Player</li>
+                            <li className="Scorers--header">Goals</li>
+                            <li className="Scorers--header">Penalty Goals</li>
+                        </ul>
+                    </li>
+                    {this.state.goalscorers.map(player => {
+                        return (
+                            <li className="Scorers--playerRow" key={player.id}>
+                                <ul className="Scorers--row">
+                                    <li className="Scorers--playerField">{player.name}</li>
+                                    <li className="Scorers--playerField">{player.goals}</li>
+                                    <li className="Scorers--playerField">{player.penalty_goals}</li>
+                                </ul>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
         );
     }
 }
