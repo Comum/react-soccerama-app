@@ -65,6 +65,16 @@ export const specificTeamInfo = teamId => {
             .then(response => response.json())
             .then(json => {
                 let team = {
+                    team_name: '',
+                    team_image: '',
+                    squad: []
+                };
+
+                if (typeof json.data === "undefined") {
+                    return team;
+                }
+
+                team = {
                     team_name: json.data.name,
                     team_image: json.data.logo_path,
                     squad: []
@@ -78,10 +88,12 @@ export const specificTeamInfo = teamId => {
                         fetch(`${SERVER_URL}/players/${player.player_id}?api_token=${API_TOKEN}`)
                             .then(response => response.json())
                             .then(playerInfo => {
-                                team.squad.push({
-                                    id: playerInfo.data.player_id,
-                                    name: playerInfo.data.fullname
-                                });
+                                if (typeof playerInfo.data !== "undefined") {
+                                    team.squad.push({
+                                        id: playerInfo.data.player_id,
+                                        name: playerInfo.data.fullname
+                                    });
+                                }
 
                                 if (index === json.data.squad.data.length - 1) {
                                     resolve(team);

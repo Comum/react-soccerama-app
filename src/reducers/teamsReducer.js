@@ -84,9 +84,22 @@ function getTeams(state, data) {
 }
 
 function getTeamInfo(state, team) {
+    let teamInfo =  {
+        team_name: '',
+        team_image: '',
+        squad: []
+    };
+    let errorMsg = ERROR_MSG;
+
+    if (team.team_name !== '' && team.squad.length) {
+        teamInfo = team;
+        errorMsg = '';
+    }
+
     return {
         ...state,
-        teamInfo: team
+        teamInfo: teamInfo,
+        errorMsg: errorMsg
     }
 }
 
