@@ -25,7 +25,7 @@ class Error extends React.Component {
         });
 
         return (
-            <div className={elClasses}>{this.state.errorMsg}</div>
+            <p className={elClasses}>{this.state.errorMsg}</p>
         )
     }
 }

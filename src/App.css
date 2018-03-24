@@ -233,3 +233,8 @@ body {
 .Scorers--playerRow:nth-child(even) {
     background-color: lightGrey;
 }
+
+.Error {
+    text-align: center;
+    color: red;
+}

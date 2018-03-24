@@ -30,11 +30,15 @@ export const seasonsInfo = leagueId => {
         return fetch(`${SERVER_URL}/seasons?api_token=${API_TOKEN}`)
             .then(response => response.json())
             .then(json => {
-                let results = json.data.filter(season => {
-                    if (season.league_id === leagueId) {
-                        return season;
-                    }
-                })
+                let results = [];
+                
+                if (typeof json.data !== "undefined") {
+                    results = json.data.filter(season => {
+                        if (season.league_id === leagueId) {
+                            return season;
+                        }
+                    });
+                }
 
                 return results;
             })

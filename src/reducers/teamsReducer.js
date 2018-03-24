@@ -49,12 +49,19 @@ function getLeagues(state, leaguesInfo) {
 }
 
 function getSeasons(state, seasonsInfo) {
-    let seasons = filterSeasons(seasonsInfo);
+    let seasons = [];
+    let errorMsg = ERROR_MSG;
+
+    if (seasonsInfo.length) {
+        seasons = filterSeasons(seasonsInfo);
+        errorMsg = '';
+    }
 
     return {
         ...state,
         seasons: seasons,
-        teams: []
+        teams: [],
+        errorMsg: errorMsg
     };
 }
 
