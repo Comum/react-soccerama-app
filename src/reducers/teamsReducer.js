@@ -17,8 +17,11 @@ const INITIAL_STATE = {
         image_path: '',
         nationality: '',
         weight: ''
-    }
+    },
+    errorMsg: ''
 };
+
+const ERROR_MSG = 'Error retrieving information please try again later';
 
 function filterLeaguesInfo(info) {
     return info.map(league => {
@@ -30,11 +33,18 @@ function filterLeaguesInfo(info) {
 }
 
 function getLeagues(state, leaguesInfo) {
-    let leagues = filterLeaguesInfo(leaguesInfo.data);
+    let leagues = [];
+    let errorMsg = ERROR_MSG;
+    
+    if (typeof leaguesInfo.data !== "undefined") {
+        leagues = filterLeaguesInfo(leaguesInfo.data);
+        errorMsg = '';
+    }
 
     return {
         ...state,
-        leagues: leagues
+        leagues: leagues,
+        errorMsg: errorMsg
     };
 }
 

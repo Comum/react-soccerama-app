@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import './App.css';
 import Header from './components/header/header.js';
 import Teams from './components/teams/teams.js';
+import Error from './components/error/error.js'
 import {
   seasonsInfo,
   teamsInfo,
@@ -23,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Error errorMsg={this.props.info.errorMsg}/>
         <Header leagues={this.props.info.leagues}
                 seasons={this.props.info.seasons}
                 onChangeLeague={this.props.onChangeLeague}
