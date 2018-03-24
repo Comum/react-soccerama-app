@@ -67,12 +67,19 @@ function getSeasons(state, seasonsInfo) {
 
 
 function getTeams(state, data) {
-    let result = filterTeams(data.teams.data[0].standings.data);
+    let result = [];
+    let errorMsg = ERROR_MSG;
+
+    if (typeof data.teams.data !== "undefined") {
+        result = filterTeams(data.teams.data[0].standings.data);
+        errorMsg = '';
+    }
 
     return {
         ...state,
         teams: result,
-        selectedSeason: data.selectedSeason
+        selectedSeason: data.selectedSeason,
+        errorMsg: errorMsg
     };
 }
 
