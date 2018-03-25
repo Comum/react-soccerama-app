@@ -104,9 +104,18 @@ function getTeamInfo(state, team) {
 }
 
 function getScorersInfo(state, scorers) {
+    let goalscorers = [];
+    let errorMsg = ERROR_MSG;
+
+    if (scorers.length) {
+        goalscorers = scorers;
+        errorMsg = '';
+    }
+
     return {
         ...state,
-        goalscorers: scorers
+        goalscorers: goalscorers,
+        errorMsg: errorMsg
     }
 }
 

@@ -133,6 +133,10 @@ export const scorersInfo = seasonId => {
             .then(json => {
                 let scorers = [];
 
+                if (typeof json.data === "undefined") {
+                    return scorers;
+                }
+
                 return new Promise(resolve => {
                     json.data.goalscorers.data.forEach((player, index) => {
                         fetch(`${SERVER_URL}/players/${player.player_id}?api_token=${API_TOKEN}`)
