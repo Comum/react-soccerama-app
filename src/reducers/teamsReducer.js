@@ -112,15 +112,27 @@ function getScorersInfo(state, scorers) {
 
 function getPlayerInfo(state, player) {
     let playerInfo = {
-        fullname: player.data.fullname,
-        image_path: player.data.image_path,
-        nationality: player.data.nationality,
-        weight: player.data.weight
+        fullname: '',
+        image_path: '',
+        nationality: '',
+        weight: ''
+    };
+    let errorMsg = ERROR_MSG;
+
+    if (typeof player.data !== "undefined") {
+        playerInfo = {
+            fullname: player.data.fullname,
+            image_path: player.data.image_path,
+            nationality: player.data.nationality,
+            weight: player.data.weight
+        };
+        errorMsg = '';
     }
 
     return {
         ...state,
-        playerInfo: playerInfo
+        playerInfo: playerInfo,
+        errorMsg: errorMsg
     }
 }
 

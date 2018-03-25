@@ -17,6 +17,7 @@ function createAction(actionType) {
 }
 
 const showError = createAction(socceramaActions.SHOW_ERROR_MSG);
+
 const receiveLeaguesInfo = createAction(socceramaActions.GET_LEAGUES_INFO);
 export const leaguesInfo = _ => {
     return dispatch => {
