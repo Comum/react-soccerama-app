@@ -4,6 +4,7 @@ import socceramaActions from './teamsActions';
 
 const SERVER_URL = 'https://soccer.sportmonks.com/api/v2.0';
 const API_TOKEN = 'HOLCAStI6Z0OfdoPbjdSg5b41Q17w2W5P4WuoIBdC66Z54kUEvGWPIe33UYC';
+const ERROR_MSG = 'No internet, please try again later';
 
 function createAction(actionType) {
     return data => {
@@ -15,12 +16,17 @@ function createAction(actionType) {
     }
 }
 
+const showError = createAction(socceramaActions.SHOW_ERROR_MSG);
 const receiveLeaguesInfo = createAction(socceramaActions.GET_LEAGUES_INFO);
 export const leaguesInfo = _ => {
     return dispatch => {
         return fetch(`${SERVER_URL}/leagues?api_token=${API_TOKEN}`)
             .then(response => response.json())
-            .then(json => dispatch(receiveLeaguesInfo(json)));
+            .then(json => dispatch(receiveLeaguesInfo(json)))
+            .catch(() => {
+                dispatch(showError(ERROR_MSG))
+                return {};
+            });
     }
 }
 
@@ -42,7 +48,11 @@ export const seasonsInfo = leagueId => {
 
                 return results;
             })
-            .then(json => dispatch(receiveSeasonsInfo(json)));
+            .then(json => dispatch(receiveSeasonsInfo(json)))
+            .catch(() => {
+                dispatch(showError(ERROR_MSG))
+                return {};
+            });
     }
 }
 
@@ -54,7 +64,11 @@ export const teamsInfo = seasonId => {
             .then(json => dispatch(receiveTeamsInfo({
                 teams: json,
                 selectedSeason: seasonId
-            })));
+            })))
+            .catch(() => {
+                dispatch(showError(ERROR_MSG))
+                return {};
+            });
     }
 }
 

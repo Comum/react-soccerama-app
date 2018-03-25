@@ -147,6 +147,13 @@ function removePlayerInfo(state) {
     }
 }
 
+function showErrorMsg(state, msg) {
+    return {
+        ...state,
+        errorMsg: msg
+    }
+}
+
 export default (state, action) => {
     if (typeof state === 'undefined') {
         state = INITIAL_STATE;
@@ -168,6 +175,8 @@ export default (state, action) => {
             return removeTeamInfo(state);
         case teams.REMOVE_PLAYER_INFO:
             return removePlayerInfo(state);
+        case teams.SHOW_ERROR_MSG:
+            return showErrorMsg(state, action.data);
         default:
             return state;
     }
