@@ -116,7 +116,11 @@ export const specificTeamInfo = teamId => {
                     });
                 });
             })
-            .then(value => dispatch(receiveTeamInfo(value)));
+            .then(value => dispatch(receiveTeamInfo(value)))
+            .catch(() => {
+                dispatch(showError(ERROR_MSG))
+                return {};
+            });
     }
 }
 
@@ -147,7 +151,11 @@ export const scorersInfo = seasonId => {
                     });
                 });
             })
-            .then(value => dispatch(receiveScorersInfo(value)));
+            .then(value => dispatch(receiveScorersInfo(value)))
+            .catch(() => {
+                dispatch(showError(ERROR_MSG))
+                return {};
+            });
     }
 }
 
@@ -157,6 +165,10 @@ export const playerInfo = playerId => {
         return fetch(`${SERVER_URL}/players/${playerId}?api_token=${API_TOKEN}`)
             .then(response => response.json())
             .then(json => dispatch(receivePlayerInfo(json)))
+            .catch(() => {
+                dispatch(showError(ERROR_MSG))
+                return {};
+            });
     }
 }
 
